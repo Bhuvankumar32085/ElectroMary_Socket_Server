@@ -11,17 +11,24 @@ const app = express();
 const server = http.createServer(app);
 const PORT = process.env.PORT || 5001;
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://electro-mart-u5yl.vercel.app",
+];
+
 // socket io
 const io = new Server(server, {
   cors: {
-    origin: "https://electro-mart-u5yl.vercel.app", //f
+    origin: allowedOrigins,
+    methods: ["GET", "POST"],
+    credentials: true,
   },
 });
 
 // Middleware
 app.use(
   cors({
-    origin: "https://electro-mart-u5yl.vercel.app", //f
+    origin: allowedOrigins,
     credentials: true,
   }),
 );
@@ -72,6 +79,10 @@ io.on("connection", (socket) => {
     console.log("socketIdToUserId", socketIdToUserId);
     console.log("userIdWithSockets", userIdWithSockets);
   });
+});
+
+app.get("/health", (req, res) => {
+  res.send("OK");
 });
 
 app.post("/chat-update", (req, res) => {
