@@ -14,14 +14,14 @@ const PORT = process.env.PORT || 5001;
 // socket io
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000", //f
+    origin: "https://electro-mart-u5yl.vercel.app", //f
   },
 });
 
 // Middleware
 app.use(
   cors({
-    origin: "http://localhost:3000", //f
+    origin: "https://electro-mart-u5yl.vercel.app", //f
     credentials: true,
   }),
 );
@@ -234,7 +234,6 @@ app.post("/order-cancelled", (req, res) => {
   }
 });
 
-
 server.listen(PORT, () => {
-  console.log(`Server listening on http://localhost:${PORT}`);
+  console.log(`Server listening on POST ${PORT}`);
 });
